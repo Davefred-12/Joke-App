@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capstone Project</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>Welcome to My Capstone Project</h1>
+
+    <div>
+        <h2>Get a Random Joke</h2>
+        <button id="get-joke-btn">Get Joke</button>
+        <p id="joke-display"></p>
+    </div>
+
+
+   
+     <form action="/get-word" method="post">
+        <label for="word">Enter a word:</label>
+        <input type="text" id="word" name="word" required>
+        <button type="submit">Get Meaning</button>
+    </form>
+
+    <% if (wordData) { %>
+    <div>
+        <h2>Word Details</h2>
+        <h3>Word: <%= wordData.word %></h3>
+        <% if (wordData.phonetics && wordData.phonetics[0].text) { %>
+            <p><strong>Phonetic:</strong> <%= wordData.phonetics[0].text %></p>
+        <% } %>
+        <% if (wordData.meanings && wordData.meanings.length > 0) { %>
+            <h3>Meanings</h3>
+            <% wordData.meanings.forEach(meaning => { %>
+                <h4>Part of Speech: <%= meaning.partOfSpeech %></h4>
+                <ul>
+                    <% meaning.definitions.forEach(definition => { %>
+                        <li><strong>Definition:</strong> <%= definition.definition %></li>
+                        <% if (definition.example) { %>
+                            <li><strong>Example:</strong> <%= definition.example %></li>
+                        <% } %>
+                    <% }) %>
+                </ul>
+            <% }) %>
+        <% } else { %>
+            <p>No meanings found for this word.</p>
+        <% } %>
+    </div>
+    <% } else { %>
+    <p>No word data to display.</p>
+    <% } %>
+
+    <script src="/js/script.js"></script>
+</body>
+</html>
