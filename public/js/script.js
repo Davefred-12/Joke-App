@@ -1,21 +1,18 @@
-document.getElementById('get-joke-btn').addEventListener('click', async () => {
-    try {
-        const response = await fetch('/get-joke');
-        const joke = await response.json();
-        document.getElementById('joke-display').innerText = `${joke.setup} - ${joke.punchline}`;
-    } catch (error) {
-        console.error('Error fetching joke:', error);
-    }
-});
+document.addEventListener('DOMContentLoaded', function() {
+    const jokeButton = document.getElementById('get-joke-btn');
+    const jokeDisplay = document.getElementById('joke-display');
 
-document.getElementById('word-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const word = document.getElementById('word-input').value;
-    try {
-        const response = await fetch(`/get-word/${word}`);
-        const wordDetails = await response.json();
-        document.getElementById('word-details').innerText = JSON.stringify(wordDetails, null, 2);
-    } catch (error) {
-        console.error('Error fetching word details:', error);
+    if (jokeButton) {
+        jokeButton.addEventListener('click', function() {
+            // Fetch a random joke from your joke API
+            fetch('https://official-joke-api.appspot.com/random_joke')
+                .then(response => response.json())
+                .then(data => {
+                    jokeDisplay.textContent = `${data.setup} - ${data.punchline}`;
+                })
+                .catch(error => {
+                    console.error('Error fetching joke:', error);
+                });
+        });
     }
 });

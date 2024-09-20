@@ -7,9 +7,13 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true })); // To parse form data
 
-// Route to render the homepage
 app.get('/', (req, res) => {
-    res.render('index', { wordData: null }); // Initialize with null for wordData
+    res.render('welcome'); // Render the welcome page initially
+});
+
+// Route to render the main app (index.ejs)
+app.get('/app', (req, res) => {
+    res.render('index', { wordData: null }); // Render the main page when "Enter App" is clicked
 });
 
 // Endpoint to get a joke
